@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PatchUP Card Business</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: #fff9f5;
+      color: #1a1a1a;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .logo {
+      width: 160px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #ff6600;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 24px;
+    }
+    .card-image {
+      width: 240px;
+      margin: 20px auto;
+    }
+    .subtitle {
+      font-size: 16px;
+      font-style: italic;
+      margin: 20px 0 30px;
+    }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .service {
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      background: #fff;
+      padding: 20px 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .service.selected {
+      background: #fff2e8;
+      border-color: #ff6600;
+      color: #d44a00;
+      font-weight: 600;
+    }
+    .plan {
+      border: 2px solid #ff6600;
+      background: #fff8f2;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .badge {
+      color: #ff6600;
+      font-weight: 700;
+      margin-left: 10px;
+      text-transform: uppercase;
+    }
+    .cta {
+      background: #ff6600;
+      color: white;
+      font-size: 18px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    .extras {
+      text-align: left;
+      font-size: 15px;
+    }
+    .extras strong {
+      display: inline-block;
+      width: 120px;
+    }
+    .extras a {
+      color: #ff6600;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://patchup.it/wp-content/uploads/2022/11/cropped-cropped-logo-1.png" class="logo" alt="Logo PatchUP" />
+    <h1>Una card, mille vantaggi!</h1>
+    <img src="https://patchup.it/wp-content/uploads/2022/11/cropped-cropped-logo-1.png" class="card-image" alt="PatchUP Card" />
+    <p class="subtitle">Seleziona i servizi e <em>scopri il tuo piano</em></p>
+
+    <div class="services">
+      <div class="service" onclick="toggle(this, 'vendita')">🛍️ Vendita</div>
+      <div class="service" onclick="toggle(this, 'noleggio')">🔁 Noleggio operativo</div>
+      <div class="service" onclick="toggle(this, 'config')">🛠️ Configurazione aziendale</div>
+      <div class="service" onclick="toggle(this, 'assistenza')">🧰 Assistenza continua</div>
+      <div class="service" onclick="toggle(this, 'sicurezza')">🔐 Sicurezza e privacy</div>
+      <div class="service" onclick="toggle(this, 'permuta')">♻️ Permuta dispositivi</div>
+    </div>
+
+    <div class="plan" id="output">
+      Nessuna selezione effettuata.
+    </div>
+
+    <button class="cta" onclick="suggerisciPiano()">ATTIVA ORA</button>
+
+    <div class="extras">
+      <h3>Servizi aggiuntivi</h3>
+      <p><strong>Sostituzione €19</strong> <a href="#">Aggiungi al piano</a></p>
+      <p><strong>Backup €9</strong> <a href="#">Aggiungi al piano</a></p>
+      <p><strong>Garanzia €29</strong> <a href="#">Aggiungi al piano</a></p>
+      <p><strong>Audit €4,90/mese</strong> <a href="#">Aggiungi al piano</a></p>
+      <p><strong>Danni €5,90/mese</strong> <a href="#">Aggiungi al piano</a></p>
+    </div>
+  </div>
+
+  <script>
+    let selezionati = [];
+
+    function toggle(el, val) {
+      el.classList.toggle('selected');
+      if (selezionati.includes(val)) {
+        selezionati = selezionati.filter(v => v !== val);
+      } else {
+        selezionati.push(val);
+      }
+    }
+
+    function suggerisciPiano() {
+      let piano = 'Bronze', prezzo = '€7,90';
+      if (selezionati.includes('noleggio') && selezionati.includes('config')) {
+        piano = 'Gold'; prezzo = '€24,90';
+      } else if (selezionati.includes('assistenza') || selezionati.includes('sicurezza')) {
+        piano = 'Silver'; prezzo = '€14,90';
+      }
+      document.getElementById('output').innerHTML = `✅ Piano suggerito: <span style="color:#d44a00;"><strong>${piano}</strong></span> ${prezzo}<span class="badge">È UN AFFARE!</span>`;
+    }
+  </script>
+</body>
+</html>
